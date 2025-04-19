@@ -1,0 +1,11 @@
+#!/bin/bash
+[ ! $URL ] && echo "No Variable!" && exit 1
+export -n GIT_DIR
+export -n GIT_WORK_TREE
+r=1
+while ! git clone -q $URL;do
+	[ $r -ge 20 ] && echo "Git Clone Failed!" && exit 1 || let r++
+	sleep 1
+done
+chmod +x var/update
+var/update 3
